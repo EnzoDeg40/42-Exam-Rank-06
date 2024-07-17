@@ -114,7 +114,8 @@ int main(int ac, char **av)
 				}
 				else
 				{
-					if (recv(fd, recv_buffer, sizeof(recv_buffer), 0) <= 0)
+					int ac = recv(fd, recv_buffer, sizeof(recv_buffer), 0);
+					if (ac <= 0)
 					{
 						sprintf(send_buffer, "server: client %d just left\n", clients[fd].id);
 						send_broadcast(fd);
@@ -123,14 +124,18 @@ int main(int ac, char **av)
 					}
 					else
 					{
-						strcpy(clients[fd].msg, recv_buffer);
-						char *found;
-						if ((found = strstr(clients[fd].msg, "\n")) != NULL)
+						for (int i = 0, j = strlen(clients[fd].msg); i < ac; i++, j++)
 						{
-							*found = '\0';
-							sprintf(send_buffer, "client %d: %s\n", clients[fd].id, clients[fd].msg);
-							send_broadcast(fd);
-						}	
+							clients[fd].msg[j] = recv_buffer[i];
+							if (clients[fd].msg[j] == '\n')
+							{
+								clients[fd].msg[j] = '\0';
+								sprintf(send_buffer, "client %d: %s\n", clients[fd].id, clients[fd].msg);
+								send_broadcast(fd);
+								bzero(clients[fd].msg, strlen(send_buffer));
+								j = -1;
+							}
+						}
 					}
 				}
 			}
