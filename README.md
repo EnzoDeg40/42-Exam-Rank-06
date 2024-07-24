@@ -10,6 +10,6 @@
 <!--FINISH HEADER-->
 <div align="center">
   
-• [My exam exercise solution](#)
+• [My exam exercise solution](https://github.com/josephcheel/42-Exam-Rank-06/blob/main/mini_serv.c)
 
 </div>
