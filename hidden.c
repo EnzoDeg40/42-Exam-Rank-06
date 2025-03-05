@@ -21,6 +21,8 @@
 
 // Vérification du nombre d'arguments
 
+// Initiation des variables
+
 // Création du socket
 
 // Initialisation de la structure d'adresse

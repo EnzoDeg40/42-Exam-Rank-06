@@ -59,6 +59,7 @@ int main(int ac, char **av)
     if (ac != 2)
         err("Wrong number of arguments\n");
     
+    // Initiation des variables
     int sockfd, connfd;
     struct sockaddr_in servaddr;
 
